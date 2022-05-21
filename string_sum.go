@@ -6,10 +6,15 @@ import (
 	"strings"
 )
 
+var (
+	errorEmptyInput     = errors.New("input is empty")
+	errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
+)
+
 func StringSum(input string) (output string, err error) {
 	slice := strings.Split(input, "")
 	if len(slice) < 3 || len(slice) > 4 {
-		var errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
+		errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
 		return "", errorNotTwoOperands
 	}
 	var slice2 []string
@@ -28,7 +33,7 @@ func StringSum(input string) (output string, err error) {
 		sum = sum + k
 	}
 	if sum == 0 {
-		var errorEmptyInput = errors.New("input is empty")
+		errorEmptyInput = errors.New("input is empty")
 		output = ""
 		return output, errorEmptyInput
 	}
