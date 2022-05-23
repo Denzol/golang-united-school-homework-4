@@ -2,6 +2,7 @@ package string_sum
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -9,33 +10,48 @@ import (
 var (
 	errorEmptyInput     = errors.New("input is empty")
 	errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
+	slice1              []string
+	slice2              []string
+	input3              []string
 )
 
 func StringSum(input string) (output string, err error) {
-	slice := strings.Split(input, "")
-	if len(slice) < 3 || len(slice) > 4 {
-		errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
-		return "", errorNotTwoOperands
-	}
-	var slice2 []string
-	for i := 0; i < len(slice); i++ {
-		if slice[i] == "-" {
-			k := slice[i] + slice[i+1]
-			i++
-			slice2 = append(slice2, k)
-		} else {
-			slice2 = append(slice2, slice[i])
+	input2 := strings.Split(input, "")
+	for _, n := range input2 {
+		if n != " " {
+			input3 = append(input3, n)
 		}
 	}
-	sum := 0
-	for _, n := range slice2 {
-		k, _ := strconv.Atoi(n)
-		sum = sum + k
+	fmt.Println(input3)
+	for i, k := range input3 {
+		if i == 0 || k != "+" && k != "-" {
+			slice1 = append(slice1, k)
+		} else if k == "+" || k == "-" {
+			slice2 = input3[len(slice1):]
+			break
+		}
 	}
-	if sum == 0 {
-		errorEmptyInput = errors.New("input is empty")
-		output = ""
-		return output, errorEmptyInput
+
+	sliceToString1 := strings.Join(slice1, "") // преобразуем слайс с первым операндом в стринг
+	fmt.Println(sliceToString1)
+	sliceToString2 := strings.Join(slice2, "") // преобразуем слайс со вторым операндом в стринг
+	fmt.Println(sliceToString2)
+	stringToInt1, err := strconv.Atoi(sliceToString1) // преобразуем стринг с первым операндом в инт
+	fmt.Println(stringToInt1)
+	stringToInt2, err := strconv.Atoi(sliceToString2) // преобразуем стринг со вторым операндом в инт
+	fmt.Println(stringToInt2)
+	if len(slice1) == 0 && len(slice2) == 0 {
+		err = fmt.Errorf("bad token %w", errorEmptyInput)
+		return "", err
+	} else if err != nil && len(slice1) != 0 && stringToInt1 == 0 {
+		err = fmt.Errorf("incorrect input %w", err)
+		return "", err
 	}
-	return strconv.Itoa(sum), nil
+	if err != nil && stringToInt2 == 0 && stringToInt1 != 0 {
+		err = fmt.Errorf("bad token %w", errorNotTwoOperands)
+		return "", err
+	}
+	e := stringToInt1 + stringToInt2
+	output = strconv.Itoa(e) // преобразуем результат в стринг
+	return output, err
 }
