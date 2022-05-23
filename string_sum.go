@@ -40,8 +40,9 @@ func StringSum(input string) (output string, err error) {
 		err = fmt.Errorf("bad token %w", errorEmptyInput)
 		return "", err
 	}
-	for _, z := range slice2[1:] {
-		if z == "+" || z == "-" {
+
+	for i := 0; i < len(slice2); i++ {
+		if slice2[i+1] == "+" || slice2[i+1] == "-" {
 			flag = true
 		}
 	}
