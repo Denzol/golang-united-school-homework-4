@@ -22,6 +22,7 @@ func StringSum(input string) (output string, err error) {
 			input3 = append(input3, n)
 		}
 	}
+	fmt.Println(input3)
 	for i, k := range input3 {
 		if i == 0 || k != "+" && k != "-" {
 			slice1 = append(slice1, k)
@@ -31,29 +32,33 @@ func StringSum(input string) (output string, err error) {
 		}
 	}
 
-	sliceToString1 := strings.Join(slice1, "")        // преобразуем слайс с первым операндом в стринг
-	sliceToString2 := strings.Join(slice2, "")        // преобразуем слайс со вторым операндом в стринг
-	stringToInt1, err := strconv.Atoi(sliceToString1) // преобразуем стринг с первым операндом в инт
-	if err != nil {
-		err = fmt.Errorf("%w", err)
-		return "", err
-	}
-	stringToInt2, err := strconv.Atoi(sliceToString2) // преобразуем стринг со вторым операндом в инт
-	if err != nil {
-		err = fmt.Errorf("%w", err)
-		return "", err
-	}
+	sliceToString1 := strings.Join(slice1, "") // преобразуем слайс с первым операндом в стринг
+	fmt.Println(sliceToString1)
+	sliceToString2 := strings.Join(slice2, "") // преобразуем слайс со вторым операндом в стринг
+	fmt.Println(sliceToString2)
 	if len(slice1) == 0 && len(slice2) == 0 {
 		err = fmt.Errorf("bad token %w", errorEmptyInput)
 		return "", err
-	} else if err != nil && len(slice1) != 0 && stringToInt1 == 0 {
+	}
+	stringToInt1, err := strconv.Atoi(sliceToString1) // преобразуем стринг с первым операндом в инт
+	if err != nil && len(slice1) != 0 && stringToInt1 == 0 {
 		err = fmt.Errorf("incorrect input %w", err)
 		return "", err
+	} else if err != nil {
+		err = fmt.Errorf("%w", err)
+		return "", err
 	}
+	fmt.Println(stringToInt1)
+
+	stringToInt2, err := strconv.Atoi(sliceToString2) // преобразуем стринг со вторым операндом в инт
 	if err != nil && stringToInt2 == 0 && stringToInt1 != 0 {
 		err = fmt.Errorf("bad token %w", errorNotTwoOperands)
 		return "", err
+	} else if err != nil {
+		err = fmt.Errorf("%w", err)
 	}
+	fmt.Println(stringToInt2)
+
 	e := stringToInt1 + stringToInt2
 	return strconv.Itoa(e), nil
 }
