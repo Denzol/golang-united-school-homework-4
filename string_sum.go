@@ -10,12 +10,12 @@ import (
 var (
 	errorEmptyInput     = errors.New("input is empty")
 	errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
-	slice1              []string
-	slice2              []string
-	input3              []string
 )
 
 func StringSum(input string) (output string, err error) {
+	var slice1 []string
+	var slice2 []string
+	var input3 []string
 	input2 := strings.Split(input, "")
 	for _, n := range input2 {
 		if n != " " {
