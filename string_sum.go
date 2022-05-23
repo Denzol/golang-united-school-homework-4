@@ -32,11 +32,6 @@ func StringSum(input string) (output string, err error) {
 			break
 		}
 	}
-	for _, z := range slice2[1:] {
-		if z == "+" || z == "-" {
-			flag = true
-		}
-	}
 	sliceToString1 := strings.Join(slice1, "") // преобразуем слайс с первым операндом в стринг
 	fmt.Println(sliceToString1)
 	sliceToString2 := strings.Join(slice2, "") // преобразуем слайс со вторым операндом в стринг
@@ -44,6 +39,11 @@ func StringSum(input string) (output string, err error) {
 	if len(slice1) == 0 && len(slice2) == 0 {
 		err = fmt.Errorf("bad token %w", errorEmptyInput)
 		return "", err
+	}
+	for _, z := range slice2[1:] {
+		if z == "+" || z == "-" {
+			flag = true
+		}
 	}
 	stringToInt1, err := strconv.Atoi(sliceToString1) // преобразуем стринг с первым операндом в инт
 	if err != nil && len(slice1) != 0 && stringToInt1 == 0 {
