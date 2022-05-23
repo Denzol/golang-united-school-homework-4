@@ -41,7 +41,7 @@ func StringSum(input string) (output string, err error) {
 		return "", err
 	}
 
-	for i := 0; i < len(slice2); i++ {
+	for i := 0; i < len(slice2)-1; i++ {
 		if slice2[i+1] == "+" || slice2[i+1] == "-" {
 			flag = true
 		}
@@ -57,7 +57,7 @@ func StringSum(input string) (output string, err error) {
 	fmt.Println(stringToInt1)
 
 	stringToInt2, err := strconv.Atoi(sliceToString2) // преобразуем стринг со вторым операндом в инт
-	if err != nil && stringToInt2 == 0 && stringToInt1 != 0 && flag {
+	if err != nil && stringToInt2 == 0 && stringToInt1 != 0 || flag {
 		err = fmt.Errorf("bad token %w", errorNotTwoOperands)
 		return "", err
 	} else if err != nil {
