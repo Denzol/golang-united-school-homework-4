@@ -47,6 +47,6 @@ func StringSum(input string) (output string, err error) {
 		return "", err
 	}
 	e := stringToInt1 + stringToInt2
-	output = strconv.Itoa(e) // преобразуем результат в стринг
+	output, err = strconv.Itoa(e) // преобразуем результат в стринг
 	return output, err
 }
