@@ -56,6 +56,7 @@ func StringSum(input string) (output string, err error) {
 		return "", err
 	} else if err != nil {
 		err = fmt.Errorf("%w", err)
+		return "", err
 	}
 	fmt.Println(stringToInt2)
 
