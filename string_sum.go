@@ -34,7 +34,15 @@ func StringSum(input string) (output string, err error) {
 	sliceToString1 := strings.Join(slice1, "")        // преобразуем слайс с первым операндом в стринг
 	sliceToString2 := strings.Join(slice2, "")        // преобразуем слайс со вторым операндом в стринг
 	stringToInt1, err := strconv.Atoi(sliceToString1) // преобразуем стринг с первым операндом в инт
+	if err != nil {
+		err = fmt.Errorf("%w", err)
+		return "", err
+	}
 	stringToInt2, err := strconv.Atoi(sliceToString2) // преобразуем стринг со вторым операндом в инт
+	if err != nil {
+		err = fmt.Errorf("%w", err)
+		return "", err
+	}
 	if len(slice1) == 0 && len(slice2) == 0 {
 		err = fmt.Errorf("bad token %w", errorEmptyInput)
 		return "", err
