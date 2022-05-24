@@ -93,7 +93,7 @@ func StringSum(input string) (output string, err error) {
 
 	//fmt.Println("stringToInt2", stringToInt2)
 
-	stringToInt3, err3 := strconv.Atoi(number3ToString)
+	_, err3 := strconv.Atoi(number3ToString)
 	if err3 != nil {
 		err3 = fmt.Errorf("%w", err3)
 	} else if err3 == nil {
